@@ -1,0 +1,20 @@
+[
+  {
+    "city": "Москва",
+    "phone": "88000000",
+    "email": "mail.@mail.ru",
+    "adress": "Город"
+  },
+  {
+    "city": "Новосибирск",
+    "phone": "88000000",
+    "email": "mail.@mail.ru",
+    "adress": "Город"
+  },
+  {
+    "city": "Владивосток",
+    "phone": "88000000",
+    "email": "mail.@mail.ru",
+    "adress": "Город"
+  }
+]
