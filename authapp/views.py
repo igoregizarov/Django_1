@@ -15,8 +15,8 @@ def login(request):
         if user and user.is_active:
             auth.login(request, user)
             return HttpResponseRedirect(reverse('main'))
-        content = {'login_form': login_form}
-        return render(request, 'authapp/login.html', content)
+    content = {'login_form': login_form}
+    return render(request, 'authapp/login.html', content)
 
 
 def logout(request):
@@ -39,11 +39,11 @@ def register(request):
 
 def edit(request):
     if request.method == 'POST':
-        edit_form = ShopUserEditForm(request.POST, request.FILES, initial=request.user)
+        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('authapp:edit'))
     else:
-        edit_form = ShopUserEditForm(initial=request.user)
+        edit_form = ShopUserEditForm(instance=request.user)
         content = {'edit_form': edit_form}
         return render(request, 'authapp/edit.html', content)
