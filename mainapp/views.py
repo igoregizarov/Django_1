@@ -17,8 +17,8 @@ def main(request):
 
 
 def products(request, pk=None):
-    print(pk)
-    link_menu = ProductCategory.objects.all()
+    links_menu = ProductCategory.objects.all()
+    same_products = Product.objects.all()
     # link_menu = [
     #     {'href': 'products_all', 'name': 'все'},
     #     {'href': 'products_home', 'name': 'дом'},
@@ -29,7 +29,8 @@ def products(request, pk=None):
 
     content = {
         'title': 'Продукты',
-        'link_menu': link_menu
+        'links_menu': links_menu,
+        'same_products': same_products,
     }
     return render(request, 'mainapp/products.html', content)
 
