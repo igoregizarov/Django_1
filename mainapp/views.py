@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 import datetime
@@ -8,31 +10,39 @@ from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory
 
 
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    return []
+
+
+def get_hot_products():
+    products_list = Product.objects.all()
+    return random.sample(list(products_list), 1)[0]
+
+
+def get_same_products(hot_product):
+    return Product.objects.filter(category__pk=hot_product.category.pk).exclude(pk=hot_product.pk)[:3]
+
+
 def main(request):
     title = 'Главная'
-
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
 
     products = Product.objects.all()[:4]
     content = {
         'title': title,
         'products': products,
-        'basket': basket
+        'basket': get_basket(request.user)
     }
     return render(request, 'mainapp/index.html', content)
 
 
 def products(request, pk=None):
     title = 'продукты'
+    hot_product = get_hot_products()
     links_menu = ProductCategory.objects.all()
-    same_products = Product.objects.all()
-
-
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+    # same_products = Product.objects.all()
+    same_products = get_same_products(hot_product)
 
     if pk is not None:
         if pk == 0:
@@ -44,7 +54,9 @@ def products(request, pk=None):
                 'links_menu': links_menu,
                 'products': product_list,
                 'category': category,
-                'basket': basket,
+                'basket': get_basket(request.user),
+                'hot_product': hot_product,
+                'same_products': same_products
             }
 
             return render(request, 'mainapp/products_list.html', content)
@@ -59,27 +71,38 @@ def products(request, pk=None):
             'links_menu': links_menu,
             'products': product_list,
             'category': category,
-            'basket': basket,
+            'basket': get_basket(request.user),
+            'hot_product': hot_product,
+            'same_products': same_products
         }
 
         return render(request, 'mainapp/products_list.html', content)
 
-    # same_products = Product.objects.all()[3:5]
 
     content = {
         'title': title,
         'links_menu': links_menu,
         'same_products': same_products,
-        'basket': basket,
+        'basket': get_basket(request.user),
+        'hot_product': hot_product
     }
     return render(request, 'mainapp/products.html', content)
 
 
-def contacts(request):
+def product(request, pk):
+    title = 'продукты'
 
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+    content = {
+        'title': title,
+        'links_menu': ProductCategory.objects.all(),
+        'product': get_object_or_404(Product, pk=pk),
+        'basket': get_basket(request.user),
+    }
+
+    return render(request, 'mainapp/product.html', content)
+
+
+def contacts(request):
 
     title = 'Контакты'
     visit_date = datetime.datetime.now()
@@ -91,86 +114,90 @@ def contacts(request):
         'title': title,
         'visit_date': visit_date,
         'locations': locations,
-        'basket': basket
+        'basket': get_basket(request.user)
     }
     return render(request, 'mainapp/contacts.html', content)
 
+#
+# def products_all(request):
+#     link_menu = [
+#         {'href': 'products_all', 'name': 'все'},
+#         {'href': 'products_home', 'name': 'дом'},
+#         {'href': 'products_office', 'name': 'офис'},
+#         {'href': 'products_modern', 'name': 'модерн'},
+#         {'href': 'products_classic', 'name': 'классика'},
+#     ]
+#
+#     content = {
+#         'title': 'Продукты',
+#         'link_menu': link_menu
+#     }
+#     return render(request, 'mainapp/products.html', content)
+#
+#
+# def products_home(request):
+#     link_menu = [
+#         {'href': 'products_all', 'name': 'все'},
+#         {'href': 'products_home', 'name': 'дом'},
+#         {'href': 'products_office', 'name': 'офис'},
+#         {'href': 'products_modern', 'name': 'модерн'},
+#         {'href': 'products_classic', 'name': 'классика'},
+#     ]
+#
+#     content = {
+#         'title': 'Продукты',
+#         'link_menu': link_menu
+#     }
+#     return render(request, 'mainapp/products.html', content)
+#
+#
+# def products_office(request):
+#     link_menu = [
+#         {'href': 'products_all', 'name': 'все'},
+#         {'href': 'products_home', 'name': 'дом'},
+#         {'href': 'products_office', 'name': 'офис'},
+#         {'href': 'products_modern', 'name': 'модерн'},
+#         {'href': 'products_classic', 'name': 'классика'},
+#     ]
+#
+#     content = {
+#         'title': 'Продукты',
+#         'link_menu': link_menu
+#     }
+#     return render(request, 'mainapp/products.html', content)
+#
+#
+# def products_modern(request):
+#     link_menu = [
+#         {'href': 'products_all', 'name': 'все'},
+#         {'href': 'products_home', 'name': 'дом'},
+#         {'href': 'products_office', 'name': 'офис'},
+#         {'href': 'products_modern', 'name': 'модерн'},
+#         {'href': 'products_classic', 'name': 'классика'},
+#     ]
+#
+#     content = {
+#         'title': 'Продукты',
+#         'link_menu': link_menu
+#     }
+#     return render(request, 'mainapp/products.html', content)
+#
+#
+# def products_classic(request):
+#     link_menu = [
+#         {'href': 'products_all', 'name': 'все'},
+#         {'href': 'products_home', 'name': 'дом'},
+#         {'href': 'products_office', 'name': 'офис'},
+#         {'href': 'products_modern', 'name': 'модерн'},
+#         {'href': 'products_classic', 'name': 'классика'},
+#     ]
+#
+#     content = {
+#         'title': 'Продукты',
+#         'link_menu': link_menu
+#     }
+#     return render(request, 'mainapp/products.html', content)
 
-def products_all(request):
-    link_menu = [
-        {'href': 'products_all', 'name': 'все'},
-        {'href': 'products_home', 'name': 'дом'},
-        {'href': 'products_office', 'name': 'офис'},
-        {'href': 'products_modern', 'name': 'модерн'},
-        {'href': 'products_classic', 'name': 'классика'},
-    ]
 
-    content = {
-        'title': 'Продукты',
-        'link_menu': link_menu
-    }
-    return render(request, 'mainapp/products.html', content)
-
-
-def products_home(request):
-    link_menu = [
-        {'href': 'products_all', 'name': 'все'},
-        {'href': 'products_home', 'name': 'дом'},
-        {'href': 'products_office', 'name': 'офис'},
-        {'href': 'products_modern', 'name': 'модерн'},
-        {'href': 'products_classic', 'name': 'классика'},
-    ]
-
-    content = {
-        'title': 'Продукты',
-        'link_menu': link_menu
-    }
-    return render(request, 'mainapp/products.html', content)
-
-
-def products_office(request):
-    link_menu = [
-        {'href': 'products_all', 'name': 'все'},
-        {'href': 'products_home', 'name': 'дом'},
-        {'href': 'products_office', 'name': 'офис'},
-        {'href': 'products_modern', 'name': 'модерн'},
-        {'href': 'products_classic', 'name': 'классика'},
-    ]
-
-    content = {
-        'title': 'Продукты',
-        'link_menu': link_menu
-    }
-    return render(request, 'mainapp/products.html', content)
-
-
-def products_modern(request):
-    link_menu = [
-        {'href': 'products_all', 'name': 'все'},
-        {'href': 'products_home', 'name': 'дом'},
-        {'href': 'products_office', 'name': 'офис'},
-        {'href': 'products_modern', 'name': 'модерн'},
-        {'href': 'products_classic', 'name': 'классика'},
-    ]
-
-    content = {
-        'title': 'Продукты',
-        'link_menu': link_menu
-    }
-    return render(request, 'mainapp/products.html', content)
-
-
-def products_classic(request):
-    link_menu = [
-        {'href': 'products_all', 'name': 'все'},
-        {'href': 'products_home', 'name': 'дом'},
-        {'href': 'products_office', 'name': 'офис'},
-        {'href': 'products_modern', 'name': 'модерн'},
-        {'href': 'products_classic', 'name': 'классика'},
-    ]
-
-    content = {
-        'title': 'Продукты',
-        'link_menu': link_menu
-    }
-    return render(request, 'mainapp/products.html', content)
+def not_found(request, exception):
+    return render(request, '404.html', status=404)

@@ -29,5 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+handler404 = 'mainapp.views.not_found'
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
