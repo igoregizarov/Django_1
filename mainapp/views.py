@@ -40,13 +40,13 @@ def main(request):
 def products(request, pk=None):
     title = 'продукты'
     hot_product = get_hot_products()
-    links_menu = ProductCategory.objects.all()
+    links_menu = ProductCategory.objects.filter(is_active=True)
     # same_products = Product.objects.all()
     same_products = get_same_products(hot_product)
 
     if pk is not None:
         if pk == 0:
-            product_list = Product.objects.all()
+            product_list = Product.objects.filter(is_active=True)
             category = {'name': 'все', 'pk': 0}
 
             content = {
@@ -94,7 +94,7 @@ def product(request, pk):
 
     content = {
         'title': title,
-        'links_menu': ProductCategory.objects.all(),
+        'links_menu': ProductCategory.objects.filter(is_active=True),
         'product': get_object_or_404(Product, pk=pk),
         'basket': get_basket(request.user),
     }

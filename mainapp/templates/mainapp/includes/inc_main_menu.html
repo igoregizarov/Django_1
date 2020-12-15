@@ -28,6 +28,13 @@
             </a>
         </li>
     {% endif %}
+    {% if user.is_superuser %}
+        <li>
+            <a href="{% url 'admin:users' %}" >
+                админка
+            </a>
+        </li>
+    {% endif %}
 </ul>
 <a href="#" class="search"></a>
 <a href="{% url 'basket:view' %}" class="basket">
