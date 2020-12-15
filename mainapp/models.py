@@ -19,4 +19,4 @@ class Product(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
 
     def __str__(self):
-        return f'{self.name} {self.category.name}'
+        pass

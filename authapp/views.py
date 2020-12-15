@@ -7,7 +7,8 @@ from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditF
 
 
 def login(request):
-    login_form = ShopUserLoginForm(data=request.POST)
+    title = 'вход'
+    login_form = ShopUserLoginForm(data=request.POST or None)
     if request.method == 'POST' and login_form.is_valid():
         username = request.POST.get('username')
         password = request.POST['password']
@@ -15,8 +16,8 @@ def login(request):
         if user and user.is_active:
             auth.login(request, user)
             return HttpResponseRedirect(reverse('main'))
-        content = {'login_form': login_form}
-        return render(request, 'authapp/login.html', content)
+    content = {'title': title, 'login_form': login_form}
+    return render(request, 'authapp/login.html', content)
 
 
 def logout(request):
@@ -25,6 +26,7 @@ def logout(request):
 
 
 def register(request):
+    title = 'регистрация'
     if request.method == 'POST':
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
         if register_form.is_valid():
@@ -33,17 +35,18 @@ def register(request):
     else:
         register_form = ShopUserRegisterForm
 
-    content = {'register_form': register_form}
+    content = {'title': title, 'register_form': register_form}
     return render(request, 'authapp/register.html', content)
 
 
 def edit(request):
+    title = 'редактирование'
     if request.method == 'POST':
-        edit_form = ShopUserEditForm(request.POST, request.FILES, initial=request.user)
+        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('authapp:edit'))
     else:
-        edit_form = ShopUserEditForm(initial=request.user)
-        content = {'edit_form': edit_form}
+        edit_form = ShopUserEditForm(instance=request.user)
+        content = {'title': title, 'edit_form': edit_form}
         return render(request, 'authapp/edit.html', content)
