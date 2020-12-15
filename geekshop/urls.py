@@ -23,13 +23,7 @@ urlpatterns = [
     path('', mainapp.main, name='main'),
     path('products/', include('mainapp.urls', namespace='products')),
     path('auth/', include('authapp.urls', namespace='auth')),
-    # path('products/', mainapp.products, name='products'),
-    #
-    # path('products/all/', mainapp.products_all, name='products_all'),
-    # path('products/home/', mainapp.products_home, name='products_home'),
-    # path('products/office/', mainapp.products_office, name='products_office'),
-    # path('products/modern/', mainapp.products_modern, name='products_modern'),
-    # path('products/classic/', mainapp.products_classic, name='products_classic'),
+    path('basket/', include('basketapp.urls', namespace='basket')),
     path('contacts/', mainapp.contacts, name='contacts'),
 
     path('admin/', admin.site.urls),
