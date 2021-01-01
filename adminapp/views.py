@@ -231,22 +231,40 @@ class ProductCategoryDeleteView(DeleteView):
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_create(request, pk):
-    category_item = get_object_or_404(ProductCategory, pk=pk)
+    title = 'продукт/создание'
+    category = get_object_or_404(ProductCategory, pk=pk)
 
     if request.method == 'POST':
-        update_form = ProductEditForm(request.POST, request.FILES)
-        if update_form.is_valid():
-            update_form.save()
+        product_form = ProductEditForm(request.POST, request.FILES)
+        if product_form.is_valid():
+            product_form.save()
             return HttpResponseRedirect(reverse('adminapp:products', args=[pk]))
     else:
-        update_form = ProductEditForm()
+        product_form = ProductEditForm(initial={'category': category})
 
-    content = {
-        'update_form': update_form,
-        'category': category_item
-    }
+    content = {'title': title,
+               'form': product_form,
+               'category': category
+               }
 
     return render(request, 'adminapp/product_update.html', content)
+# def product_create(request, pk):
+#     category_item = get_object_or_404(ProductCategory, pk=pk)
+#
+#     if request.method == 'POST':
+#         update_form = ProductEditForm(request.POST, request.FILES)
+#         if update_form.is_valid():
+#             update_form.save()
+#             return HttpResponseRedirect(reverse('adminapp:products', args=[pk]))
+#     else:
+#         update_form = ProductEditForm()
+#
+#     content = {
+#         'form': update_form,
+#         'category': category_item
+#     }
+#
+#     return render(request, 'adminapp/product_update.html', content)
 
 
 @user_passes_test(lambda u: u.is_superuser)
