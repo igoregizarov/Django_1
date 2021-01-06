@@ -11,11 +11,31 @@
     </li>
     {% if user.is_authenticated %}
         <li>
-            <a href="{% url 'auth:edit' %}" >
-                {% if user.first_name %} {{user.first_name }} {% else %} пользователь {% endif %}
+       <div class="dropdown">
+           <a class="dropdown-toggle" href="" data-toggle="dropdown">
+               {{ user.first_name|default:'Пользователь' }}
+               <span class="caret"></span>
+           </a>
+           <ul class="dropdown-menu">
+               <li>
+                   <a href="{% url 'auth:edit' %}">
+                       профиль
+                   </a>
+               </li>
+               <li>
+                   <a href="{% url 'ordersapp:orders_list' %}">
+                       заказы
+                   </a>
+               </li>
+           </ul>
+       </div>
+   </li>
+<!--        <li>-->
+<!--            <a href="{% url 'auth:edit' %}" >-->
+<!--                {% if user.first_name %} {{user.first_name }} {% else %} пользователь {% endif %}-->
 
-            </a>
-        </li>
+<!--            </a>-->
+<!--        </li>-->
         <li>
             <a href="{% url 'auth:logout' %}" >
                 выход
