@@ -1,0 +1,45 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+
+<div class="users_list">
+    {% for object in object_list %}
+
+            <div class="">
+                <p>Заказчик: <strong>{{ object.user }}</strong></p>
+            </div>
+            <div class="">
+                создано: {{ object.created }}
+            </div>
+            <div class="">
+                обновлено: {{ object.updated }}
+            </div>
+            <div class="">
+                статус: {{ object.status }}
+            </div>
+            <button>
+                <a href={% url 'admin:order_update' object.pk %}>
+                изменить статус заказа
+                </a>
+            </button>
+            <div class="">
+                активность: {{ object.is_active }}
+            </div>
+            <button>
+                <a href={% url 'admin:order_delete' object.pk %}>
+                {% if object.is_active %}
+                удалить
+                {% else %}
+                восстановить
+                {% endif %}
+                заказ
+                </a>
+            </button>
+            <br>
+            <br>
+
+    {% endfor%}
+</div>
+{% endblock %}
