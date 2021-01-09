@@ -244,7 +244,7 @@ def product_create(request, pk):
 
     content = {'title': title,
                'form': product_form,
-               'category': category
+               'object': category
                }
 
     return render(request, 'adminapp/product_update.html', content)
