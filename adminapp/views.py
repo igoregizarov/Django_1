@@ -29,6 +29,8 @@ from mainapp.models import ProductCategory, Product
 #         'update_form': user_form
 #     }
 #     return render(request, 'adminapp/user_update.html', content)
+from ordersapp.forms import OrderForm, OrderUpdateForm
+from ordersapp.models import Order
 
 
 class UserCreateView(CreateView):
@@ -72,6 +74,21 @@ class UsersListView(ListView):
         return context
 
 
+class OrderListView(ListView):
+    model = Order
+    template_name = 'adminapp/orders.html'
+    # paginate_by = 2
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'заказы'
+        return context
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def user_update(request, pk):
     edit_user = get_object_or_404(ShopUser, pk=pk)
@@ -91,6 +108,26 @@ def user_update(request, pk):
 
 
 @user_passes_test(lambda u: u.is_superuser)
+def order_update(request, pk):
+    title = 'статус заказа/редактирование'
+    edit_order = get_object_or_404(Order, pk=pk)
+    if request.method == 'POST':
+        edit_form = OrderUpdateForm(request.POST, request.FILES, instance=edit_order)
+        if edit_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect(reverse('adminapp:order_update', args=[edit_order.pk]))
+    else:
+        edit_form = OrderUpdateForm(instance=edit_order)
+
+    content = {
+        'title': title,
+        'form': edit_form
+    }
+
+    return render(request, 'adminapp/order_update.html', content)
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def user_delete(request, pk):
     user_item = get_object_or_404(ShopUser, pk=pk)
     if request.method == 'POST':
@@ -104,6 +141,24 @@ def user_delete(request, pk):
         'user_to_delete': user_item
     }
     return render(request, 'adminapp/user_delete.html', content)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def order_delete(request, pk):
+    title = 'заказ/удаление'
+    order_item = get_object_or_404(Order, pk=pk)
+    if request.method == 'POST':
+        if order_item.is_active:
+            order_item.is_active = False
+        else:
+            order_item.is_active = True
+        order_item.save()
+        return HttpResponseRedirect(reverse('admin:orders'))
+    content = {
+        'title': title,
+        'order_to_delete': order_item
+    }
+    return render(request, 'adminapp/order_delete.html', content)
 
 
 # categories
@@ -351,6 +406,8 @@ class ProductUpdateView(UpdateView):
     def get_success_url(self):
         update_product = get_object_or_404(Product, pk=self.kwargs['pk'])
         return reverse_lazy('admin:products', args=[update_product.category.pk])
+
+
 
 
 # @user_passes_test(lambda u: u.is_superuser)
