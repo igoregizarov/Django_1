@@ -1,0 +1,223 @@
+GET /order/ HTTP/1.1
+Host: 127.0.0.1:8000
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 500 Internal Server Error
+Date: Wed, 20 Jan 2021 14:21:21 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/html
+Server-Timing: TimerPanel_utime;dur=247.65500000000884;desc="User CPU time", TimerPanel_stime;dur=12.489999999999668;desc="System CPU time", TimerPanel_total;dur=260.1450000000085;desc="Total CPU time", TimerPanel_total_time;dur=308.40206146240234;desc="Elapsed time", SQLPanel_sql_time;dur=6.724834442138672;desc="SQL 4 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+X-Frame-Options: DENY
+Content-Length: 135552
+Vary: Cookie
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+
+
+GET /auth/edit/ HTTP/1.1
+Host: 127.0.0.1:8000
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 500 Internal Server Error
+Date: Wed, 20 Jan 2021 14:21:21 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/html
+Server-Timing: TimerPanel_utime;dur=117.30099999999766;desc="User CPU time", TimerPanel_stime;dur=26.01800000000054;desc="System CPU time", TimerPanel_total;dur=143.3189999999982;desc="Total CPU time", TimerPanel_total_time;dur=177.40368843078613;desc="Elapsed time", SQLPanel_sql_time;dur=0.08106231689453125;desc="SQL 1 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+X-Frame-Options: DENY
+Content-Length: 103495
+Vary: Cookie
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+
+
+GET /contacts/ HTTP/1.1
+Host: 127.0.0.1:8000
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/html; charset=utf-8
+Server-Timing: TimerPanel_utime;dur=32.7039999999954;desc="User CPU time", TimerPanel_stime;dur=7.248000000000587;desc="System CPU time", TimerPanel_total;dur=39.95199999999599;desc="Total CPU time", TimerPanel_total_time;dur=47.476768493652344;desc="Elapsed time", SQLPanel_sql_time;dur=0;desc="SQL 0 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+X-Frame-Options: DENY
+Vary: Cookie
+Content-Length: 14395
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Set-Cookie:  csrftoken=a2ZmL5ZLvu3xF0ZGZJEOLbWJAkwnJPSNlGkCMmyKnpmhNocyX2kKCJsA1gL59bRx; expires=Wed, 19 Jan 2022 14:21:22 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+
+
+GET /static/debug_toolbar/js/toolbar.js HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: application/javascript
+Content-Length: 10268
+Content-Disposition: inline; filename="toolbar.js"
+Last-Modified: Mon, 18 Jan 2021 14:49:46 GMT
+
+
+GET /static/debug_toolbar/css/toolbar.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 11405
+Content-Disposition: inline; filename="toolbar.css"
+Last-Modified: Mon, 18 Jan 2021 14:49:46 GMT
+
+
+GET /static/debug_toolbar/css/print.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 43
+Content-Disposition: inline; filename="print.css"
+Last-Modified: Mon, 18 Jan 2021 14:49:46 GMT
+
+
+GET /static/js/bootstrap.min.js HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: application/javascript
+Content-Length: 37045
+Content-Disposition: inline; filename="bootstrap.min.js"
+Last-Modified: Tue, 12 Jan 2021 13:59:50 GMT
+
+
+GET /static/js/jquery-3.2.1.min.js HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: application/javascript
+Content-Length: 86659
+Content-Disposition: inline; filename="jquery-3.2.1.min.js"
+Last-Modified: Tue, 12 Jan 2021 13:59:50 GMT
+
+
+GET /static/fonts/font-awesome/css/font-awesome.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 37414
+Content-Disposition: inline; filename="font-awesome.css"
+Last-Modified: Tue, 12 Jan 2021 13:59:50 GMT
+
+
+GET /static/style.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 18742
+Content-Disposition: inline; filename="style.css"
+Last-Modified: Thu, 03 Dec 2020 15:46:55 GMT
+
+
+GET /static/css/style.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:22 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 30057
+Content-Disposition: inline; filename="style.css"
+Last-Modified: Tue, 12 Jan 2021 13:59:50 GMT
+
+
+GET /static/css/bootstrap.min.css HTTP/1.1
+Host: 127.0.0.1:8000
+Cookie: SameSite=Lax
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (pc-x86_64-linux-gnu) Siege/4.0.4
+Connection: close
+
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Jan 2021 14:21:23 GMT
+Server: WSGIServer/0.2 CPython/3.6.9
+Content-Type: text/css
+Content-Length: 121200
+Content-Disposition: inline; filename="bootstrap.min.css"
+Last-Modified: Tue, 12 Jan 2021 13:59:50 GMT
+
+
