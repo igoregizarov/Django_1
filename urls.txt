@@ -1,3 +1,1 @@
-http://127.0.0.1:8000/order/
-http://127.0.0.1:8000/auth/edit/
-http://127.0.0.1:8000/contacts/
+http://127.0.0.1:8000/basket/
